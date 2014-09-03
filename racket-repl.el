@@ -244,7 +244,10 @@ Keep original window selected."
   "Major mode for Racket REPL.
 \\{racket-repl-mode-map}"
   (racket--variables-for-both-modes)
-  (setq-local comint-prompt-regexp "^[^<>#\"\n]*> +")
+  ;; comint-prompt-regexp is important to get exactly right for
+  ;; comint-redirect-send-command-to-process as used by
+  ;; racket--eval/buffer and friends.
+  (setq-local comint-prompt-regexp "^[^<>#\"'\n ]*> +$")
   ;; (setq-local comint-use-prompt-regexp t)
   ;; (setq-local comint-prompt-read-only t)
   (setq-local mode-line-process nil)
